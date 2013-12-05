@@ -40,7 +40,7 @@ public class StatsdCounterInterface implements CounterInterface {
                 OutputConfigurationFactory.getAgentCofiguration("statsd", StatsdOutputConfigurationJapi.apply()).outputConfig();
         this.statsd = new NonBlockingStatsDClient(configuration.prefix(),
                 configuration.remoteAddress(), configuration.remotePort(), configuration.constantTags());
-        this.gaugeValues = new ConcurrentHashMap<>();
+        this.gaugeValues = new ConcurrentHashMap<String, Metric>();
 
         final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1, new ThreadFactory() {
             private final ThreadFactory delegate = Executors.defaultThreadFactory();

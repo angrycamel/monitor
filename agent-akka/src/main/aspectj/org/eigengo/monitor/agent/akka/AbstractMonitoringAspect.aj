@@ -29,7 +29,11 @@ abstract aspect AbstractMonitoringAspect {
         try {
             CounterInterface counterInterface = (CounterInterface)Class.forName(configuration.counterInterfaceClassName()).newInstance();
             return counterInterface;
-        } catch (final ReflectiveOperationException e) {
+        } catch (final ClassNotFoundException cnfe) {
+            return new NullCounterInterface();
+        } catch (final InstantiationException ie) {
+            return new NullCounterInterface();
+        } catch (final IllegalAccessException iae) {
             return new NullCounterInterface();
         } catch (final ClassCastException e) {
             return new NullCounterInterface();
